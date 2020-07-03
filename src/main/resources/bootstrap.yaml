@@ -1,12 +1,32 @@
+# Spring Properties - Global
 server:
   port: 8080
 spring:
   application:
     name: spring-boot-redis
+  profiles:
+    active: dev
 
+
+
+# Environment - Dev
+---
+spring:
+  profiles: dev
   cache:
     type: redis
-    
+  redis:
+    host: localhost
+    port: 6379
+
+
+
+# Environment - Docker
+---
+spring:
+  profiles: docker
+  cache:
+    type: redis
   redis:
     host: localhost
     port: 6379
