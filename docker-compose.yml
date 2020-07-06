@@ -2,29 +2,30 @@ version: "3.8"
 
 services:
   redis:
-    image: "redis:latest"
-    container_name: my-redis
+    image: redis:alpine
+    container_name: redis-spring
+    hostname: redis
     ports:
       - "6379:6379"
     expose:
       - "6379"
-    networks:
-      - spring-boot-redis_default
-      
-  spring-boot-redis:
-    image: "mupezzuol/spring-boot-redis:latest"
+    networks: 
+      - "spring-redis"
+
+  app-spring:
+    image: mupezzuol/spring-boot-redis:latest
     container_name: spring-boot-redis
     restart: always
     ports:
       - "8080:8080"
     expose:
       - "8080"
-    networks:
-      - spring-boot-redis_default
+    networks: 
+      - "spring-redis"
     depends_on:
       - redis
     environment:
       - SPRING_PROFILES_ACTIVE=docker
-  
-networks:
-  spring-boot-redis_default:
+
+networks: 
+  spring-redis:
